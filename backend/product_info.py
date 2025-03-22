@@ -116,18 +116,10 @@ def get_sustainability_info(product_input):
         product = product_brand
         brand = product_brand
     
-
-    ##############MIGHT BE BROKEN################
     # dataframe for ratings from brands
-<<<<<<< HEAD
-    import rating_df
-    df = rating_df.df
-        
-=======
     data = rating_df.data
     df = pd.DataFrame(data)
     
->>>>>>> fbd91d029649691e6bd435ec3060d5a7df9b94a9
     # Find the brand in the dataframe
     brand_row = df[df['Brand'].str.lower() == brand.lower()]
     
