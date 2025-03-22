@@ -9,7 +9,7 @@ import Wardrobe from './wardrobe.js'
 import Account from './account.js'
 import Feed from './feed.js'
 import Marketplace from './marketplace.js'
-
+import Login from './login.js'
 
 async function addData(db) {
   try {
@@ -25,56 +25,45 @@ async function addData(db) {
 
 function App(props) {
   const [data, setData] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(()=>{
-    addData(props.db);
+    //addData(props.db);
   },[])
 
-  // useEffect(() => {
-  //   // Initialize the Firebase database with the provided configuration
-  //   const database = getDatabase(cong);
-    
-  //   // Reference to the specific collection in the database
-  //   const collectionRef = ref(props.db, "your_collection");
+  useEffect(() => {
+    const unsubscribe = props.auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
 
-  //   // Function to fetch data from the database
-  //   const fetchData = () => {
-  //     // Listen for changes in the collection
-  //     onValue(collectionRef, (snapshot) => {
-  //       const dataItem = snapshot.val();
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, [props.auth]);
 
-  //       // Check if dataItem exists
-  //       if (dataItem) {
-  //         // Convert the object values into an array
-  //         const displayItem = Object.values(dataItem);
-  //         setData(displayItem);
-  //       }
-  //     });
-  //   };
-
-  //   // Fetch data when the component mounts
-  //   fetchData();
-  // }, []);
   return (
     <div className="App">
       <header className="App-header">
       <Router>
-            <header>
-              <nav>
-                  <Link to="/">Feed</Link>
-                  <Link to="/Marketplace">Marketplace</Link>
-                  <Link to="/Wardrobe">Wardrobe</Link>
-                  <Link to="/Account">Account</Link>
-              </nav>
-            </header>
-            <main>
-            <Routes>
-                <Route path="/" element={<Feed />} />
-                <Route path="/Marketplace" element={<Marketplace />} />
-                <Route path="/Wardrobe" element={<Wardrobe />} />
-                <Route path="/Account" element={<Account />} />
-            </Routes>
-            </main>
+          {!user ? 
+          <Login auth={props.auth}/> :
+            <>
+              <header className="navbar">
+                <nav>
+                    <Link to="/">Feed</Link>
+                    <Link to="/Marketplace">Marketplace</Link>
+                    <Link to="/Wardrobe">Wardrobe</Link>
+                    <Link to="/Account">Account</Link>
+                </nav>
+              </header>
+              <main>
+              <Routes>
+                  <Route path="/" element={<Feed />} />
+                  <Route path="/Marketplace" element={<Marketplace auth={props.auth}/>} />
+                  <Route path="/Wardrobe" element={<Wardrobe auth={props.auth}/>} />
+                  <Route path="/Account" element={<Account auth={props.auth}/>} />
+              </Routes>
+              </main>
+            </>
+          }
         </Router>
       
       </header>

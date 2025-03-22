@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.navbar{
+  position:fixed;
+  top:10px;
+
+}
+
+nav{
+  display:flex;
+  gap:2rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
