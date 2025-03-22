@@ -1,3 +1,7 @@
+#Conversion of score to letter grade for the overall score of the brand.
+#The overall score is calculated based on the ratings from two sources: Good On You and Fashion Checker,
+#and there are four ratings from these two sources that will be used in a formula.
+
 def score_to_letter(score):
     if score >= 95: return "A+"
     elif score >= 90: return "A"
