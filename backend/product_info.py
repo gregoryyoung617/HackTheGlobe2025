@@ -144,7 +144,7 @@ def get_sustainability_info(product_input):
         "overall_score": overall_score,
         "description": description,
         "country_of_production": country,
-        "country_sustainability": country_sustainability,
+        "country_risk": country_sustainability,
         "ratings": {
             "good_on_you": {
                 "planet": good_on_you_planet,
