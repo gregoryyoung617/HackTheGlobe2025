@@ -13,10 +13,10 @@ import Login from './login.js'
 
 //svgs
 import analyzeSvg from './assets/svgs/analyze.svg'
-import accountSvg from './assets/svgs/account.svg'
 import feedSvg from './assets/svgs/feed.svg'
 import marketplaceSvg from './assets/svgs/marketplace.svg'
 import wardrobeSvg from './assets/svgs/wardrobe.svg'
+import todaySvg from './assets/svgs/today.svg'
 
 async function addData(db) {
   try {
@@ -53,13 +53,13 @@ function App(props) {
           {!user ? 
           <Login auth={props.auth}/> :
             <>
-              <header className="navbar">
+              <div className="navbar">
                 <nav>
                     <Link to="/Account">
                       <div className="nav-item">
                       <img
                         className="nav-svg"
-                        src={accountSvg}>
+                        src={todaySvg}>
                       </img>
                       <span className="nav-text">Today </span>
                       </div>
@@ -103,13 +103,13 @@ function App(props) {
                     </Link>
                     
                 </nav>
-              </header>
+              </div>
               <main>
               <Routes>
                   <Route path="/" element={<Feed />} />
-                  <Route path="/Marketplace" element={<Marketplace auth={props.auth}/>} />
-                  <Route path="/Wardrobe" element={<Wardrobe auth={props.auth}/>} />
-                  <Route path="/Account" element={<Account auth={props.auth}/>} />
+                  <Route path="/Marketplace" element={<Marketplace auth={props.auth} user={user}/>} />
+                  <Route path="/Wardrobe" element={<Wardrobe auth={props.auth} user={user}/>} />
+                  <Route path="/Account" element={<Account auth={props.auth} user={user}/>} />
               </Routes>
               </main>
             </>
