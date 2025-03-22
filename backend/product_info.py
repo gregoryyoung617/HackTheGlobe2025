@@ -61,6 +61,8 @@ def gpt_wrapper(brand_name, overall_score, planet_rating):
 Format: "[BrandName] has a [rating] rating of [overall score]. [2 sentences about sustainability efforts based on ratings]."
 Keep it concise and professional."""
     
+    return prompt
+
     return claude_request(prompt)  # Use Anthropic Claude
     
     # For testing without API key, use the fallback:
