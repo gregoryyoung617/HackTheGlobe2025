@@ -162,7 +162,7 @@ def get_sustainability_info(product_input):
         (good_on_you_planet / 5) * 25 +
         (good_on_you_overall / 5) * 25 +
         (fashion_checker_living_wage / 5) * 25 +
-        (fashion_checker_overall / 5) * 25
+        (fashion_checker_overall / 3) * 25
     )
     
     # Convert to letter grade
