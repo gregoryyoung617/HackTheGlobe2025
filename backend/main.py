@@ -1,4 +1,3 @@
-# filepath: /c:/Users/lena/Documents/Personal/HTG2025/HackTheGlobe2025/backend/main.py
 import json
 import product_info
 
