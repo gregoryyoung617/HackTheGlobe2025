@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login(props){
@@ -48,9 +47,9 @@ export default function Login(props){
                 <input onChange={(e)=>{
                     setLogPW(e.target.value)
                 }}/>
-                <Button
+                <button
                     onClick={handleLogin}
-                >login</Button>
+                >login</button>
             </div>
 
             <div>
