@@ -4,6 +4,9 @@ import json
 import requests
 import os
 
+import main
+import rating_df
+
 def gpt_wrapper(brand_name, overall_score, planet_rating):
     """
     Make an API call to OpenAI GPT or Anthropic Claude to generate a description.
@@ -114,32 +117,7 @@ def get_sustainability_info(product_input):
         brand = product_brand
     
     # dataframe for ratings from brands
-    data = {
-    'Brand': [
-        'Nike', 'Adidas', 'H&M', 'Zara', 'Patagonia', 'American Eagle', 'Uniqlo', 'Balenciaga',
-        'North Face', 'Aritzia', 'Lululemon', 'Abercrombie', 'Anta', 'Urban Outfitters',
-        'Canada Goose', 'Gildan Activewear Inc.', 'Hugo Boss AG', 'Zeeman', 'Gap Inc.',
-        'Walmart', 'Christian Dior', 'Ralph Lauren', 'Shein', "Levi's", 'Longchamp',
-        'Saint Laurent', 'Chanel', 'ALDO', 'DKNY', 'Primark'
-    ],
-    'GoodOnYou_Planet': [
-        3, 3, 3, 3, 4, 3, 3, 4, 4, 2, 2, 2, 2, 2, 3, 3, 3, 2, 3, 2,
-        4, 4, 2, 4, 2, 5, 2, 2, 1, 3
-    ],
-    'GoodOnYou_Overall': [
-        2, 2, 3, 3, 4, 2, 3, 4, 4, 2, 3, 3, 2, 2, 3, 3, 3, 4, 3, 2,
-        2, 3, 1, 4, 2, 3, 2, 2, 2, 3
-    ],
-    'FC_Commitment': [
-        1, 1, 2, 1, 2, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 2, 1, 3, 0, 0,
-        0, 1, 0, 0, 0, 1, 0, 0, 0, 2
-    ],
-    'FC_Overall': [
-        5, 5, 5, 1, 4, 1, 5, 1, 5, 1, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1,
-        1, 5, 1, 4, 1, 1, 1, 1, 1, 2
-    ]
-    }
-    
+    data = rating_df.data
     df = pd.DataFrame(data)
     
     # Find the brand in the dataframe
@@ -154,8 +132,8 @@ def get_sustainability_info(product_input):
     # Extract ratings
     good_on_you_planet = round(float(brand_row['GoodOnYou_Planet'].values[0]), 1)
     good_on_you_overall = round(float(brand_row['GoodOnYou_Overall'].values[0]), 1)
-    fashion_checker_living_wage = round(float(brand_row['FashionChecker_LivingWage'].values[0]), 1)
-    fashion_checker_overall = round(float(brand_row['FashionChecker_Overall'].values[0]), 1)
+    fashion_checker_living_wage = round(float(brand_row['FC_Commitment'].values[0]), 1)
+    fashion_checker_overall = round(float(brand_row['FC_Overall'].values[0]), 1)
     
     # Calculate overall score (out of 100)
     overall_numerical = (
