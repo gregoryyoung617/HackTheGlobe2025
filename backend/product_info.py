@@ -119,6 +119,10 @@ def get_sustainability_info(product_input):
     fashion_checker_living_wage = round(float(brand_row['FC_Commitment'].values[0]), 1)
     fashion_checker_overall = round(float(brand_row['FC_Overall'].values[0]), 1)
     
+    # Extract country
+    country = brand_row['Country']
+    country_sustainability = brand_row['Country_sustainability']
+    
     # Calculate overall score (out of 100)
     overall_numerical = (
         (good_on_you_planet / 5) * 25 +
@@ -132,10 +136,6 @@ def get_sustainability_info(product_input):
     
     # Generate description
     description = gpt_wrapper(brand, overall_score, good_on_you_planet)
-    
-    # Randomly select country of production
-    countries = ["China", "Bangladesh", "Vietnam", "India", "Turkey", "Indonesia"]
-    country = random.choice(countries)
     
     # Compile the result
     result = {
@@ -153,6 +153,8 @@ def get_sustainability_info(product_input):
                 "living_wage": fashion_checker_living_wage,
                 "overall": fashion_checker_overall
             }
-        }
+        },
+        "country": country,
+        "country_sustainability": country_sustainability,
     }
     return result
