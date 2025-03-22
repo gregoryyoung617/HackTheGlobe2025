@@ -120,8 +120,8 @@ def get_sustainability_info(product_input):
     fashion_checker_overall = round(float(brand_row['FC_Overall'].values[0]), 1)
     
     # Extract country
-    country = brand_row['Country']
-    country_sustainability = brand_row['Country_sustainability']
+    country = brand_row['Country'].values[0]
+    country_sustainability = brand_row['Country_sustainability'].values[0]
     
     # Calculate overall score (out of 100)
     overall_numerical = (
@@ -132,7 +132,7 @@ def get_sustainability_info(product_input):
     )
     
     # Convert to letter grade
-    overall_score = score_to_letter(overall_numerical)
+    overall_score = score_to_letter.score_to_letter(overall_numerical)
     
     # Generate description
     description = gpt_wrapper(brand, overall_score, good_on_you_planet)
@@ -144,6 +144,7 @@ def get_sustainability_info(product_input):
         "overall_score": overall_score,
         "description": description,
         "country_of_production": country,
+        "country_sustainability": country_sustainability,
         "ratings": {
             "good_on_you": {
                 "planet": good_on_you_planet,
@@ -154,7 +155,5 @@ def get_sustainability_info(product_input):
                 "overall": fashion_checker_overall
             }
         },
-        "country": country,
-        "country_sustainability": country_sustainability,
     }
     return result
