@@ -9,7 +9,14 @@ import Wardrobe from './wardrobe.js'
 import Account from './account.js'
 import Feed from './feed.js'
 import Marketplace from './marketplace.js'
+import Login from './login.js'
 
+//svgs
+import analyzeSvg from './assets/svgs/analyze.svg'
+import accountSvg from './assets/svgs/account.svg'
+import feedSvg from './assets/svgs/feed.svg'
+import marketplaceSvg from './assets/svgs/marketplace.svg'
+import wardrobeSvg from './assets/svgs/wardrobe.svg'
 
 async function addData(db) {
   try {
@@ -25,56 +32,88 @@ async function addData(db) {
 
 function App(props) {
   const [data, setData] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(()=>{
-    addData(props.db);
+    //addData(props.db);
   },[])
 
-  // useEffect(() => {
-  //   // Initialize the Firebase database with the provided configuration
-  //   const database = getDatabase(cong);
-    
-  //   // Reference to the specific collection in the database
-  //   const collectionRef = ref(props.db, "your_collection");
+  useEffect(() => {
+    const unsubscribe = props.auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
 
-  //   // Function to fetch data from the database
-  //   const fetchData = () => {
-  //     // Listen for changes in the collection
-  //     onValue(collectionRef, (snapshot) => {
-  //       const dataItem = snapshot.val();
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, [props.auth]);
 
-  //       // Check if dataItem exists
-  //       if (dataItem) {
-  //         // Convert the object values into an array
-  //         const displayItem = Object.values(dataItem);
-  //         setData(displayItem);
-  //       }
-  //     });
-  //   };
-
-  //   // Fetch data when the component mounts
-  //   fetchData();
-  // }, []);
   return (
     <div className="App">
       <header className="App-header">
       <Router>
-            <header>
-              <nav>
-                  <Link to="/">Feed</Link>
-                  <Link to="/Marketplace">Marketplace</Link>
-                  <Link to="/Wardrobe">Wardrobe</Link>
-                  <Link to="/Account">Account</Link>
-              </nav>
-            </header>
-            <main>
-            <Routes>
-                <Route path="/" element={<Feed />} />
-                <Route path="/Marketplace" element={<Marketplace />} />
-                <Route path="/Wardrobe" element={<Wardrobe />} />
-                <Route path="/Account" element={<Account />} />
-            </Routes>
-            </main>
+          {!user ? 
+          <Login auth={props.auth}/> :
+            <>
+              <header className="navbar">
+                <nav>
+                    <Link to="/Account">
+                      <div className="nav-item">
+                      <img
+                        className="nav-svg"
+                        src={accountSvg}>
+                      </img>
+                      <span className="nav-text">Today </span>
+                      </div>
+                    </Link>
+                    <Link to="/Marketplace">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={marketplaceSvg}>
+                        </img>
+                        <span className="nav-text">Marketplace</span>
+                      </div>
+                    </Link>
+                    <Link to="/">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={feedSvg}>
+                        </img>
+                        <span className="nav-text">Feed</span>
+                      </div>
+                    </Link>
+                    <Link to="/Analyze">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={analyzeSvg}>
+                        </img>
+                        <span className="nav-text">Analyze</span>
+                      </div>
+                    </Link>
+                    
+                    <Link to="/Wardrobe">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={wardrobeSvg}>
+                        </img>
+                        <span className="nav-text">Wardrobe</span>
+                      </div>
+                    </Link>
+                    
+                </nav>
+              </header>
+              <main>
+              <Routes>
+                  <Route path="/" element={<Feed />} />
+                  <Route path="/Marketplace" element={<Marketplace auth={props.auth}/>} />
+                  <Route path="/Wardrobe" element={<Wardrobe auth={props.auth}/>} />
+                  <Route path="/Account" element={<Account auth={props.auth}/>} />
+              </Routes>
+              </main>
+            </>
+          }
         </Router>
       
       </header>

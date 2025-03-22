@@ -7,6 +7,7 @@ import App from './App';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,10 +28,23 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User is logged in:", user);
+    // User is signed in, you can access user details like:
+    // user.uid, user.email, etc.
+  } else {
+    console.log("No user is logged in");
+    // User is signed out
+  }
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App db={db}/>
+    <App db={db} auth={auth}/>
   </React.StrictMode>
 );
 
