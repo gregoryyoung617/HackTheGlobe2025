@@ -195,17 +195,3 @@ def get_sustainability_info(product_input):
     }
     
     return result
-
-# Example usage
-def main():
-    # Example input
-    product_input = "<product>Organic Cotton T-shirt by Patagonia</product>"
-    
-    # Process input and get result
-    result = get_sustainability_info(product_input)
-    
-    # Output result
-    print(json.dumps(result, indent=2))
-
-if __name__ == "__main__":
-    main()
