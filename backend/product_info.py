@@ -58,7 +58,7 @@ def gpt_wrapper(brand_name, overall_score, planet_rating):
 1. The brand has a {rating_descriptor} sustainability rating of {overall_score}.
 2. The brand's environmental rating is {planet_rating} out of 5.
 
-Format: "[BrandName] has a [rating] rating of [overall score]. [1 sentence about sustainability efforts based on ratings]."
+Format: "[BrandName] has a [rating] rating of [overall score]. [2 sentences about sustainability efforts based on ratings]."
 Keep it concise and professional."""
     
     return claude_request(prompt)  # Use Anthropic Claude
@@ -82,17 +82,17 @@ Keep it concise and professional."""
 
 # Function to convert numerical score to letter grade
 def score_to_letter(score):
-    if score >= 97: return "A+"
-    elif score >= 93: return "A"
-    elif score >= 90: return "A-"
-    elif score >= 87: return "B+"
-    elif score >= 83: return "B"
-    elif score >= 80: return "B-"
-    elif score >= 77: return "C+"
-    elif score >= 73: return "C"
-    elif score >= 70: return "C-"
-    elif score >= 67: return "D+"
-    elif score >= 63: return "D"
+    if score >= 95: return "A+"
+    elif score >= 90: return "A"
+    elif score >= 85: return "A-"
+    elif score >= 80: return "B+"
+    elif score >= 75: return "B"
+    elif score >= 70: return "B-"
+    elif score >= 65: return "C+"
+    elif score >= 60: return "C"
+    elif score >= 55: return "C-"
+    elif score >= 50: return "D+"
+    elif score >= 45: return "D"
     else: return "D-"
 
 # Main function to process product information
@@ -113,9 +113,7 @@ def get_sustainability_info(product_input):
         product = product_brand
         brand = product_brand
     
-    # In a real implementation, this would be loaded from a database
-    # For this mockup, we'll create a sample dataframe
-    # TODO: INSERT ACTUAL DATAFRAME
+    # dataframe for ratings from brands
     data = {
         'Brand': ['Nike', 'Adidas', 'H&M', 'Zara', 'Patagonia', product_brand],
         'GoodOnYou_Planet': [2.5, 3.5, 3.0, 2.0, 4.5, random.uniform(1.0, 5.0)],
