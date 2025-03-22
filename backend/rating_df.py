@@ -1,3 +1,13 @@
+#This dataframe that will be used to store the ratings of the brands, and
+#the ratings will be used to calculate the overall score of the brand.
+#The overall score will be calculated based on the ratings from two sources:
+#Good On You and Fashion Checker. There are four ratings from these two sources that will be used in a formula.
+
+#GoodOnYou_Planet: Rating from Good On You for the brand's impact on the planet (out of 5)
+#GoodOnYou_Overall: Overall rating from Good On You (out of 5)
+#FC_Commitment: Rating from Fashion Checker for the brand's commitment to living wage (out of 5)
+#FC_Overall: Overall rating from Fashion Checker (out of 3)
+
 import pandas as pd
 data = {
     'Brand': [

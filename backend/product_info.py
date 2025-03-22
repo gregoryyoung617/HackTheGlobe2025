@@ -6,10 +6,11 @@ import os
 
 import main
 import rating_df
+import score_to_letter
 
 def gpt_wrapper(brand_name, overall_score, planet_rating):
     """
-    Make an API call to OpenAI GPT or Anthropic Claude to generate a description.
+    Make an API call Anthropic Claude to generate a description.
     
     This function sends a request to the AI model with information about the brand,
     its overall sustainability score, and planet rating to get a customized description.
@@ -80,23 +81,6 @@ Keep it concise and professional."""
     
     # Return a fallback response if API is not configured
     return f"{brand_name} has a {rating_descriptor} rating of {overall_score}. The brand is {effort_description}."
-
-
-
-# Function to convert numerical score to letter grade
-def score_to_letter(score):
-    if score >= 95: return "A+"
-    elif score >= 90: return "A"
-    elif score >= 85: return "A-"
-    elif score >= 80: return "B+"
-    elif score >= 75: return "B"
-    elif score >= 70: return "B-"
-    elif score >= 65: return "C+"
-    elif score >= 60: return "C"
-    elif score >= 55: return "C-"
-    elif score >= 50: return "D+"
-    elif score >= 45: return "D"
-    else: return "D-"
 
 # Main function to process product information
 def get_sustainability_info(product_input):
@@ -171,5 +155,4 @@ def get_sustainability_info(product_input):
             }
         }
     }
-    
     return result
