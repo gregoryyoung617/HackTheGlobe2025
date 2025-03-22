@@ -1,6 +1,10 @@
+:root{
+  --light-bg: #f8f6f1;
+}
+
 .App {
   text-align: center;
-  background-color: #FBF6E9;
+  background-color: var(--light-bg);
 }
 
 * {
@@ -19,14 +23,14 @@
 }
 
 .App-header {
-  background-color: #FBF6E9;
+  background-color: var(--light-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {
@@ -34,19 +38,19 @@
 }
 
 .navbar{
-  position:fixed;
+  position:fixed !important;
   bottom:0;
-  width:100%;
-
+  right:0;
+  width:100vw;
   border-top:1px solid black;
 }
 
 nav{
   display:flex;
   width:100%;
-  padding:10px;
   justify-content:center;
   gap:3rem;
+  z-index:100;
 }
 
 .nav-svg{
@@ -64,6 +68,54 @@ nav{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+}
+
+.page-container{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  gap:1rem;
+  width:100vw;
+  height:100vh;
+  z-index:10;
+}
+
+.account-container{
+  display:flex;
+  justify-content:flex-start;
+  padding:1rem;
+  width:100vw;
+}
+
+.acc-svg{
+  width:35px;
+  height:35px;
+}
+
+.acc-dropdown{
+  padding: 15px 5px;
+  border:1px solid black;
+  position:absolute;
+  left:20px;
+  top:50px;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:flex-start;
+  z-index:100;
+  background-color:var(--light-bg);
+  font-size:15px;
+}
+
+.button{
+  background-color:inherit;
+  border:none;
+}
+
+.green{
+  background-color:#118B50 !important;
 }
 
 @keyframes App-logo-spin {
