@@ -4,6 +4,9 @@ import json
 import requests
 import os
 
+import main
+import rating_df
+
 def gpt_wrapper(brand_name, overall_score, planet_rating):
     """
     Make an API call to OpenAI GPT or Anthropic Claude to generate a description.
@@ -116,9 +119,15 @@ def get_sustainability_info(product_input):
 
     ##############MIGHT BE BROKEN################
     # dataframe for ratings from brands
+<<<<<<< HEAD
     import rating_df
     df = rating_df.df
         
+=======
+    data = rating_df.data
+    df = pd.DataFrame(data)
+    
+>>>>>>> fbd91d029649691e6bd435ec3060d5a7df9b94a9
     # Find the brand in the dataframe
     brand_row = df[df['Brand'].str.lower() == brand.lower()]
     
@@ -131,8 +140,8 @@ def get_sustainability_info(product_input):
     # Extract ratings
     good_on_you_planet = round(float(brand_row['GoodOnYou_Planet'].values[0]), 1)
     good_on_you_overall = round(float(brand_row['GoodOnYou_Overall'].values[0]), 1)
-    fashion_checker_living_wage = round(float(brand_row['FashionChecker_LivingWage'].values[0]), 1)
-    fashion_checker_overall = round(float(brand_row['FashionChecker_Overall'].values[0]), 1)
+    fashion_checker_living_wage = round(float(brand_row['FC_Commitment'].values[0]), 1)
+    fashion_checker_overall = round(float(brand_row['FC_Overall'].values[0]), 1)
     
     # Calculate overall score (out of 100)
     overall_numerical = (

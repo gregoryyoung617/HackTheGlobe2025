@@ -24,5 +24,9 @@ data = {
         1, 5, 1, 4, 1, 1, 1, 1, 1, 2
     ]
 }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fbd91d029649691e6bd435ec3060d5a7df9b94a9
 df = pd.DataFrame(data)
