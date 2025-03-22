@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-color: #FBF6E9;
+}
+
+* {
+  text-decoration:none !important;
 }
 
 .App-logo {
@@ -14,7 +19,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FBF6E9;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,13 +35,35 @@
 
 .navbar{
   position:fixed;
-  top:10px;
+  bottom:0;
+  width:100%;
 
+  border-top:1px solid black;
 }
 
 nav{
   display:flex;
-  gap:2rem;
+  width:100%;
+  padding:10px;
+  justify-content:center;
+  gap:3rem;
+}
+
+.nav-svg{
+  height:28px;
+  width:28px;
+}
+
+.nav-text{
+  font-size:11px;
+  color:black;
+}
+
+.nav-item{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
 @keyframes App-logo-spin {

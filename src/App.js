@@ -11,6 +11,13 @@ import Feed from './feed.js'
 import Marketplace from './marketplace.js'
 import Login from './login.js'
 
+//svgs
+import analyzeSvg from './assets/svgs/analyze.svg'
+import accountSvg from './assets/svgs/account.svg'
+import feedSvg from './assets/svgs/feed.svg'
+import marketplaceSvg from './assets/svgs/marketplace.svg'
+import wardrobeSvg from './assets/svgs/wardrobe.svg'
+
 async function addData(db) {
   try {
     const docRef = await addDoc(collection(db, "users"), {
@@ -48,10 +55,53 @@ function App(props) {
             <>
               <header className="navbar">
                 <nav>
-                    <Link to="/">Feed</Link>
-                    <Link to="/Marketplace">Marketplace</Link>
-                    <Link to="/Wardrobe">Wardrobe</Link>
-                    <Link to="/Account">Account</Link>
+                    <Link to="/Account">
+                      <div className="nav-item">
+                      <img
+                        className="nav-svg"
+                        src={accountSvg}>
+                      </img>
+                      <span className="nav-text">Today </span>
+                      </div>
+                    </Link>
+                    <Link to="/Marketplace">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={marketplaceSvg}>
+                        </img>
+                        <span className="nav-text">Marketplace</span>
+                      </div>
+                    </Link>
+                    <Link to="/">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={feedSvg}>
+                        </img>
+                        <span className="nav-text">Feed</span>
+                      </div>
+                    </Link>
+                    <Link to="/Analyze">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={analyzeSvg}>
+                        </img>
+                        <span className="nav-text">Analyze</span>
+                      </div>
+                    </Link>
+                    
+                    <Link to="/Wardrobe">
+                      <div className="nav-item">
+                        <img
+                          className="nav-svg"
+                          src={wardrobeSvg}>
+                        </img>
+                        <span className="nav-text">Wardrobe</span>
+                      </div>
+                    </Link>
+                    
                 </nav>
               </header>
               <main>
