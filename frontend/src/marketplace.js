@@ -33,7 +33,7 @@ export default function Marketplace(props){
 
     return (
         <div className="page-container">
-            <div className="page-header">
+            <div className="page-header" style={{fontWeight:'bold', marginTop:'2rem', fontSize:'25px'}}>
                 Marketplace
             </div>
             {

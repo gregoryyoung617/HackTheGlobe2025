@@ -152,7 +152,7 @@ export default function Wardrobe(props){
     return (
         <div className="page-container">
             <div className="page-header">
-                <div className="page-title">
+                <div className="page-title" style={{fontWeight:"bold"}}>
                     Your Wardrobe
                 </div>
                 <img
