@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { doc, updateDoc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 
 export const getProductInfo = async (productInput) => {
     try {
@@ -69,7 +69,7 @@ export const listAllClothing = async (db, userID, sortBy) => {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const clothingItem = {
-                id: data.id,
+                id: doc.id,
                 userID: data.userID,
                 clothingType: data.clothingType,
                 clothingName: data.clothingName,
@@ -95,18 +95,14 @@ export const listAllClothing = async (db, userID, sortBy) => {
     }
 }
 
-export const getIndividualClothing = async (db, clothingURL) => {
+export const getIndividualClothing = async (db, id) => {
     try {
-        console.log("looking for:", clothingURL);
-        const clothingRef = collection(db, "clothes");
-        const q = query(clothingRef, where("clothingPictureURL", "==", clothingURL));
-        const querySnapshot = await getDocs(q);
-        
-        if (!querySnapshot.empty) {
-            const doc = querySnapshot.docs[0];
-            const data = doc.data();
+        const docSnap = getDoc(doc(db, "clothes", id));
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
             const clothingItem = {
-                id: data.id,
+                id: docSnap.id,
                 userID: data.userID,
                 clothingType: data.clothingType,
                 clothingName: data.clothingName,
@@ -165,6 +161,41 @@ export const markClothingForSale = async (db, id) => {
         };
     } catch (error) {
         console.error("Failed to mark clothing for sale:", error);
+        throw error;
+    }
+}
+
+export const listMarketPlace = async (db, sortBy) => {
+    try {
+        const clothingRef = collection(db, "clothes");
+        const q = query(clothingRef, where("onSale", "==", true));
+        const querySnapshot = await getDocs(q);
+        const clothingArray = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const clothingItem = {
+                id: doc.id,
+                userID: data.userID,
+                clothingType: data.clothingType,
+                clothingName: data.clothingName,
+                clothingPictureURL: data.clothingPictureURL,
+                company: data.company,
+                size: data.size,
+                lastWorn: data.lastWorn,
+                timesWorn: data.timesWorn,
+                onSale: data.onSale
+            };
+            clothingArray.push(clothingItem);
+        });
+        if (sortBy === "timesWorn") {
+            clothingArray.sort((a, b) => b.timesWorn - a.timesWorn);
+        } else if (sortBy === "lastWorn") {
+            clothingArray.sort((a, b) => new Date(b.lastWorn) - new Date(a.lastWorn));
+        }
+        console.log(clothingArray);
+        return clothingArray;
+    } catch (error) {
+        console.error("Failed to fetch listings:", error);
         throw error;
     }
 }

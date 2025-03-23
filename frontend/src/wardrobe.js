@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { getStorage, ref, uploadBytes,listAll, getDownloadURL, list } from "firebase/storage";
 import addSvg from './assets/svgs/add.svg'
-import { createClothing, listAllClothing, getIndividualClothing} from "./api";
+import { createClothing, listAllClothing, getIndividualClothing, markClothingForSale} from "./api";
 
 export default function Wardrobe(props){
     const [image, setImage] = useState(null);
@@ -28,6 +28,9 @@ export default function Wardrobe(props){
     const [viewType, setViewType] = useState(null);
     const [viewBrand, setViewBrand] = useState(null);
     const [viewSize, setViewSize] = useState(null);
+    const [viewTimesWorn, setViewTimesWorn] = useState(null);
+    const [viewId, setViewId] = useState(null);
+    const [viewOnSale, setViewOnSale] = useState(null);
 
     const handleDrop = (e) => {
         e.preventDefault();
@@ -65,7 +68,12 @@ export default function Wardrobe(props){
         }
     };
 
-    
+    const markForSale = async (id) => {
+        await markClothingForSale(props.db, id);
+        fetchImages();
+        setViewOnSale(true);
+    };
+
     const uploadImage = async () => {
         if (!(imageFile instanceof File)) {
             console.error("Invalid file provided");
@@ -126,6 +134,9 @@ export default function Wardrobe(props){
         setViewBrand(currImg.company);
         setViewSize(currImg.size);
         setViewType(currImg.clothingType);
+        setViewOnSale(currImg.onSale);
+        setViewTimesWorn(currImg.timesWorn);
+        setViewId(currImg.id);
         setShowImg(true);
     }
 
@@ -300,6 +311,9 @@ export default function Wardrobe(props){
                         <span>{`${viewBrand}`}</span>
                         <span>{`${viewType}`}</span>
                         <span>{`${viewSize}`}</span>
+                        <span>{`${viewTimesWorn} times worn`}</span>
+                        {viewOnSale == true ? <span>On sale</span> : <button onClick={() => markForSale(viewId)}>mark as on sale</button>}
+                        
 
                     </div>
                 </Modal.Body>
