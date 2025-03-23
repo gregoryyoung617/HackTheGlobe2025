@@ -96,9 +96,10 @@ export default function Analyze() {
             
             {isLoading && (
                 <div className="loading-container">
-                    <Logo/>
+                    {/* <Logo/> */}
                     {/* <div className="loading-spinner">🔄</div>
                     <p>Analyzing sustainability information...</p> */}
+                    <span className="loader"></span>
                 </div>
             )}
             

@@ -178,10 +178,7 @@ export default function Wardrobe(props){
             <span>{`You have ${numImgs} ${numImgs === 1 ? "item":"items"}`}</span>
             {
                 loading ? 
-                    // <div className="loading">
-                    //     <img src={loadingSvg} className="loading-svg"></img>
-                    // </div> 
-                    <Logo/>
+                    <span className="loader"></span>
                     :
                 <div className="img-grid">
                     {imageObjs && imageObjs.map((img, index) => (
