@@ -6,6 +6,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 import accountSvg from './assets/svgs/account.svg'
+import fireSvg from './assets/svgs/fire.svg'
 
 export default function Account(props){
     const [accDropdown, setAccDropdown] = useState(false);
@@ -116,14 +117,18 @@ export default function Account(props){
             <Card style={{width:"90%"}}>
                 <Card.Body>
                     <Card.Title>
-                        Streak: 5
+                        Streak: 25 Days
+                        <img
+                            src={fireSvg}
+                            className="nav-svg"
+                            style={{marginBottom:"10px"}}/>
                     </Card.Title>
                 </Card.Body>
             </Card>
 
             <Card style={{width:"90%"}}>
             <Card.Body>
-                    <Card.Title>Upload Picture</Card.Title>
+                    <Card.Title>Upload Your Daily Fit!</Card.Title>
                     <div
                         style={{
                             border: "2px dashed #ccc",
@@ -152,25 +157,42 @@ export default function Account(props){
                             id="fileInput"
                             onChange={handleFileChange}
                         />
-                        <label
-                            htmlFor="fileInput"
-                            style={{
-                                display: "inline-block",
-                                marginTop: "10px",
-                                padding: "10px 20px",
-                                backgroundColor: "#007bff",
-                                color: "#fff",
-                                borderRadius: "5px",
-                                cursor: "pointer",
-                            }}
-                            className="green"
-                        >
-                            Choose File
-                        </label>
+                        <div style={{display:'flex', gap:'1rem', justifyContent:'center'}}>
+                                <label
+                                    htmlFor="fileInput"
+                                    style={{
+                                        display: "inline-block",
+                                        marginTop: "10px",
+                                        padding: "10px 10px",
+                                        backgroundColor: "#007bff",
+                                        color: "#fff",
+                                        borderRadius: "5px",
+                                        cursor: "pointer",
+                                    }}
+                                    className="green"
+                                >
+                                    Choose File
+                                </label>
+
+                                <label
+                                    htmlFor="fileInput"
+                                    style={{
+                                        display: "inline-block",
+                                        marginTop: "10px",
+                                        padding: "10px 10px",
+                                        backgroundColor: "#007bff",
+                                        color: "#fff",
+                                        width:'101px',
+                                        borderRadius: "5px",
+                                        cursor: "pointer",
+                                    }}
+                                    className="green"
+                                    onClick={uploadImage}
+                                >
+                                    Upload
+                                </label>
+                            </div>
                     </div>
-                    <Button
-                        onClick={uploadImage}
-                        className="green">Upload</Button>
                 </Card.Body>
             </Card>
         </div>
