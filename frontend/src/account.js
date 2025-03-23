@@ -7,6 +7,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import accountSvg from './assets/svgs/account.svg'
 import fireSvg from './assets/svgs/fire.svg'
+import logoPng from './assets/imgs/HTG2025_logo.png'
 
 export default function Account(props){
     const [accDropdown, setAccDropdown] = useState(false);
@@ -175,7 +176,6 @@ export default function Account(props){
                                 </label>
 
                                 <label
-                                    htmlFor="fileInput"
                                     style={{
                                         display: "inline-block",
                                         marginTop: "10px",
