@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import { getStorage, ref, uploadBytes,listAll, getDownloadURL, list } from "firebase/storage";
 import addSvg from './assets/svgs/add.svg'
 import Logo from './loading'
-import anime from "animejs";
 import loadingSvg from './assets/svgs/logo.svg'
 import { createClothing, listAllClothing, getIndividualClothing, markClothingForSale} from "./api";
 
@@ -149,20 +148,6 @@ export default function Wardrobe(props){
     const handleAddImg = ()=>{
         setShowAdd(true);
     }
-
-    useEffect(() => {
-        if (loading) {
-            anime({
-                targets: ".loading-svg g path", // Target the loading SVG
-                strokeDashoffset: [anime.setDashoffset, 0],
-                easing: 'easeInOutSine',
-                duration: 1000,
-                delay: function(el, i) { return i * 100 },
-                direction: 'alternate',
-                loop: true,
-            });
-        }
-    }, [loading]);
     
     return (
         <div className="page-container">

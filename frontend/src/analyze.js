@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAndPrintSustainabilityInfo } from "./api";
 import Logo from './loading'
-import anime from "animejs";
 
 export default function Analyze() {
     const [clothingName, setClothingName] = useState("");
@@ -41,20 +40,6 @@ export default function Analyze() {
             </div>
         );
     };
-
-    useEffect(() => {
-        if (isLoading) {
-            anime({
-                targets: ".loading-svg g path", // Target the loading SVG
-                strokeDashoffset: [anime.setDashoffset, 0],
-                easing: 'easeInOutSine',
-                duration: 1000,
-                delay: function(el, i) { return i * 100 },
-                direction: 'alternate',
-                loop: true,
-            });
-        }
-    }, [isLoading]);
 
     return (
         <div className="analyze-container">
