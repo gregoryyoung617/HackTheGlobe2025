@@ -87,7 +87,7 @@ nav{
   height:100vh;
   z-index:10;
   overflow-y:scroll;
-  padding-bottom:3rem;
+  padding-bottom:5rem;
 }
 
 .add-input{
@@ -115,6 +115,7 @@ nav{
   position:absolute !important;
   top:1rem;
   left:1rem;
+  z-index:100;
 }
 
 .add-svg{
@@ -197,6 +198,11 @@ height:200px;
   object-fit: cover; /* Ensures the image fills the square while maintaining its aspect ratio */
   object-position: center; 
   width:200px;
+}
+
+.selected-img{
+  border-radius:5px;
+  border:1px solid grey;
 }
 
 .loader {

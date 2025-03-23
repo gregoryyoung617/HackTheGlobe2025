@@ -78,7 +78,7 @@ export const listAllClothing = async (db, userID, sortBy) => {
                 size: data.size,
                 lastWorn: data.lastWorn,
                 timesWorn: data.timesWorn,
-                onSale: data.onSale
+                onSale: data.onSale,
             };
             clothingArray.push(clothingItem);
         });
