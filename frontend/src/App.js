@@ -108,7 +108,7 @@ function App(props) {
               <main>
               <Routes>
                   <Route path="/" element={<Feed auth={props.auth} user={user}/>} />
-                  <Route path="/Marketplace" element={<Marketplace auth={props.auth} user={user}/>} />
+                  <Route path="/Marketplace" element={<Marketplace db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Wardrobe" element={<Wardrobe db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Account" element={<Account db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Analyze" element={<Analyze auth={props.auth} user={user}/>} />
