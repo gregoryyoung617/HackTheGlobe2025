@@ -167,7 +167,7 @@ export default function Wardrobe(props){
                     :
                 <div className="img-grid">
                     {imageObjs && imageObjs.map((img, index) => (
-                        <img
+                        <><img
                             key={index}
                             src={img.clothingPictureURL}
                             alt={`Image ${index}`}
@@ -177,6 +177,9 @@ export default function Wardrobe(props){
                                 handleImgClick(img.clothingPictureURL)
                             }}
                         />
+                        {!img.lastWorn && 
+                            <span style={{color:"red"}}>Not worn in a year</span>}
+                        </>
                     ))}
                 </div>
 
@@ -306,12 +309,13 @@ export default function Wardrobe(props){
                 </Card>
             </Modal>
             <Modal 
+
                 show={showImg}
                 onHide={()=>{
                     setShowImg(false)
                 }}>
                 <Modal.Body
-                    style={{padding:'0'}}>
+                    style={{padding:'0', width:'80vw'}}>
                     <img src={currUrl}
                     className="wardrobe-img"/>
                     <div style={{display:"flex",
