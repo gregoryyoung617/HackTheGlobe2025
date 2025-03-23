@@ -167,7 +167,7 @@ export default function Wardrobe(props){
                     :
                 <div className="img-grid">
                     {imageObjs && imageObjs.map((img, index) => (
-                        <><img
+                        <div style={{position:'relative'}}><img
                             key={index}
                             src={img.clothingPictureURL}
                             alt={`Image ${index}`}
@@ -178,8 +178,9 @@ export default function Wardrobe(props){
                             }}
                         />
                         {!img.lastWorn && 
-                            <span style={{color:"red"}}>Not worn in a year</span>}
-                        </>
+                            <span style={{color:"red", position:'absolute', bottom:"0px", left:'5px'}}>
+                                Not worn in a year</span>}
+                        </div>
                     ))}
                 </div>
 
