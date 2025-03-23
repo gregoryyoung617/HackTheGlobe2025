@@ -1,9 +1,24 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { getStorage, ref, uploadBytes,listAll, getDownloadURL } from "firebase/storage";
 
-export default function Feed(){
+export default function Feed(props){
     // Mock feed items for illustration
+    const [imageUrls, setImageUrls] = useState([]);
+    const fetchImages = async () => {
+        const storage = getStorage();
+        const folderRef = ref(storage, `images/${props.user.uid}/wardrobe/`);
+        const result = await listAll(folderRef);
+        const urls = await Promise.all(result.items.map((itemRef) => getDownloadURL(itemRef)));
+        setImageUrls(urls);
+        console.log(urls);
+    };
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
+
     const feedItems = [
         {
             user: "Bob",
@@ -22,17 +37,17 @@ export default function Feed(){
     return (
         <div className="page-container">
             <h2 style={{ margin: "1rem 0" }}>Today's Feed</h2>
-            {feedItems.map((item, index) => (
+            {imageUrls.map((item, index) => (
                 <Card style={{ width: "90%", marginBottom: "1rem" }} key={index}>
                     <Card.Body>
-                        <Card.Title>{item.user}’s Outfit</Card.Title>
+                        <Card.Title>{item.user ? item.user : "Bob"}’s Outfit</Card.Title>
                         <img 
-                            src={item.outfitUrl} 
+                            src={item.outfitUrl ? item.outfitUrl : item} 
                             alt="Outfit" 
                             style={{ maxWidth: "100%", maxHeight: "300px", marginBottom: "1rem" }}
                         />
                         <Card.Text>
-                            Likes: {item.likes} | Comments: {item.comments}
+                            Likes: {item.likes ? item.likes : 3} | Comments: {item.comments ? item.comments : 2}
                         </Card.Text>
                         <Button variant="primary" style={{ marginRight: "0.5rem" }}>Like</Button>
                         <Button variant="secondary">Comment</Button>
