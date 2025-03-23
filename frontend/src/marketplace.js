@@ -5,7 +5,7 @@ export default function Marketplace(){
     return (
         <div>
             marketplace
-            <button onClick={() => fetchAndPrintSustainabilityInfo("shoes","nike")}>sample</button>
+            <button onClick={() => fetchAndPrintSustainabilityInfo("shoes","Nike")}>sample</button>
         </div>
     )
 }

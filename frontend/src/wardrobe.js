@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { getStorage, ref, uploadBytes,listAll, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes,listAll, getDownloadURL, list } from "firebase/storage";
 import addSvg from './assets/svgs/add.svg'
+import { createClothing, listAllClothing, getIndividualClothing} from "./api";
 
 export default function Wardrobe(props){
     const [image, setImage] = useState(null);
@@ -218,6 +219,9 @@ export default function Wardrobe(props){
                     className="wardrobe-img"/>
                 </Modal.Body>
             </Modal>
+            <button onClick={() => getIndividualClothing(props.db, "youtube.com")}>Get clothing by url</button>
+            <button onClick={() => listAllClothing(props.db, props.user.uid, "timesWorn")}>List all clothing</button>
+            <button onClick={() => createClothing(props.db, props.user.uid, "Shirt", "Kaws Tokyo's First", "youtube.com", "Uniqlo", "XXXL")}>Create</button>
         </div>
     )
 }
