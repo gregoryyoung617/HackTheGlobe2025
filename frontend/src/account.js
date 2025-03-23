@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { signOut } from "firebase/auth";
 import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Button from 'react-bootstrap/Button';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { createClothing, listAllClothing, getIndividualClothing, markClothingForSale} from "./api";
 
 import accountSvg from './assets/svgs/account.svg'
 import fireSvg from './assets/svgs/fire.svg'
@@ -16,9 +19,11 @@ export default function Account(props){
     const [uploading, setUploading] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [imageFile, setImageFile] = useState(null);
+    const [imageObjs, setImageObjs] = useState(null);
+    const [showModal, setShowModal] = useState(null);
 
     // New state for demonstration
-    const [sustainabilityPoints] = useState(120); // Example: user has 120 points
+    const [sustainabilityPoints, setSustainabilityPoints] = useState(120); // Example: user has 120 points
     const [dailyTip] = useState("Wash clothes in cold water to save energy and preserve fabric quality.");
 
     const handleLogout = () => {
@@ -75,7 +80,8 @@ export default function Account(props){
         const storage = getStorage();
 
         setUploading(true);
-        const storageRef = ref(storage, `images/${props.user.uid}/posts/${imageFile.name}`); 
+        const storageRef = ref(storage, `images/${props.user.uid}/posts/${imageFile.name}`);
+        setShowModal(true);
         try {
             await uploadBytes(storageRef, imageFile);
             console.log("File uploaded successfully!");
@@ -89,6 +95,24 @@ export default function Account(props){
             setUploading(false);
         }
     };
+
+    const fetchImages = async () => {
+        // const storage = getStorage();
+        // const folderRef = ref(storage, `images/${props.user.uid}/wardrobe/`);
+        // const result = await listAll(folderRef);
+        // const urls = await Promise.all(result.items.map((itemRef) => getDownloadURL(itemRef)));
+        const imgObjs = await listAllClothing(props.db, props.user.uid, "timesWorn");
+        setImageObjs(imgObjs);
+        //setImageUrls(urls);
+    };
+
+    useEffect(()=>{
+        console.log(imageObjs);
+    },[imageObjs])
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
 
     return (
         <div className="page-container">
@@ -220,6 +244,49 @@ export default function Account(props){
                     </div>
                 </Card.Body>
             </Card>
+
+            <Card style={{width:'90vw'}}>
+                <Card.Body style={{display:'flex', flexDirection:'column'}}>
+                    <Card.Title>
+                        Leaderboard 🏆
+                    </Card.Title>
+                    <span>1. Alice</span>
+                    <span>2. Bob</span>
+                    <span>3. Charlie</span>
+                </Card.Body>
+            </Card>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Your Items</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {imageObjs && imageObjs.length > 0 ? (
+                        <div className="img-grid">
+                            {imageObjs.map((item) => (
+                                <div key={item.id} style={{ marginBottom: "1rem" }}>
+                                    <input type="checkbox" style={{marginRight:"5px"}}></input>
+                                    <img
+                                        src={item.clothingPictureURL}
+                                        style={{ width: "90%"}}
+                                        className="img-square"
+                                    />
+                                    <span>{item.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No items to display.</p>
+                    )}
+                    <Button
+                        onClick={()=>{
+                            setSustainabilityPoints(154);
+                            setShowModal(false);
+                        }}
+                        className="green"
+                    >Confirm</Button>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }

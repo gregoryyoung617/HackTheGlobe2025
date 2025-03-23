@@ -187,7 +187,7 @@ export default function Wardrobe(props){
                     setShowAdd(false)
                 }}>
 
-                <Card >
+                <Card style={{width:'90vw'}}>
                     <Card.Body>
                         <Card.Title>Add new item</Card.Title>
                         <div
@@ -324,7 +324,7 @@ export default function Wardrobe(props){
                         <span>{`${viewType}`}</span>
                         <span>{`${viewSize}`}</span>
                         <span>{`${viewTimesWorn} times worn`}</span>
-                        {viewOnSale == true ? <span>On sale</span> : <button onClick={() => markForSale(viewId)}>mark as on sale</button>}
+                        {viewOnSale == true ? <span style={{marginTop:"2rem", color:"#118B50", fontWeight:"bold"}}>On sale</span> : <Button className="green" style={{marginTop:"2rem"}}onClick={() => markForSale(viewId)}>Post on Marketplace</Button>}
                         
 
                     </div>
