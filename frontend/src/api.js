@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 export const getProductInfo = async (productInput) => {
     try {
@@ -121,6 +122,27 @@ export const getIndividualClothing = async (db, clothingURL) => {
         }
     } catch (error) {
         console.error("Failed to return individual clothing:", error);
+        throw error;
+    }
+}
+
+export const createUser = async (db, uid, email) => {
+    try {
+        // Create a new user object
+        const newUser = {
+            uid: uid,
+            email: email,
+            points: 0,
+            dateCreated: new Date(),
+            streak: 100,
+        };
+        
+        // Create a direct reference to the document with the UID as document ID
+        const docRef = await addDoc(collection(db, "users"), newUser);
+        console.log("Document written with ID: ", docRef.id);
+        return docRef.id;
+    } catch (error) {
+        console.error("Failed to create user:", error);
         throw error;
     }
 }

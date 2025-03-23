@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUser } from "./api";
 
 export default function Login(props){
     const [regUser, setRegUser] = useState(null);
@@ -16,6 +17,7 @@ export default function Login(props){
                 // Signed up 
                 console.log("succesfully registered");
                 const user = userCredential.user;
+                createUser(props.db, user.uid, regUser);
                 // ...
             })
             .catch((error) => {

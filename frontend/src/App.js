@@ -9,6 +9,7 @@ import Wardrobe from './wardrobe.js'
 import Account from './account.js'
 import Feed from './feed.js'
 import Marketplace from './marketplace.js'
+import Analyze from './analyze.js'
 import Login from './login.js'
 
 //svgs
@@ -110,6 +111,7 @@ function App(props) {
                   <Route path="/Marketplace" element={<Marketplace auth={props.auth} user={user}/>} />
                   <Route path="/Wardrobe" element={<Wardrobe db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Account" element={<Account db={props.db} auth={props.auth} user={user}/>} />
+                  <Route path="/Analyze" element={<Analyze auth={props.auth} user={user}/>} />
               </Routes>
               </main>
             </>
