@@ -128,10 +128,11 @@ export const getIndividualClothing = async (db, id) => {
 export const createUser = async (db, uid, email) => {
     try {
         // Create a new user object
+        let points = Math.floor(Math.random() * 1000) + 1;
         const newUser = {
             uid: uid,
             email: email,
-            points: 0,
+            points: points,
             dateCreated: new Date(),
             streak: 100,
         };
@@ -201,59 +202,50 @@ export const listMarketPlace = async (db, sortBy) => {
     }
 }
 
-// export const postOutfit = async (db, userID, outfitPictureURL, clothingItems) => {
-//     try {
-//         // Create a new outfit object
-//         let totalPoints = 0;
-//         clothingItems.forEach((item) => {
-//             totalPoints += item.timesWorn;
-//         });
+export const postOutfit = async (db, userID, outfitPictureURL) => {
+    try {
+        // Create a new outfit object
+        const totalPoints = Math.floor(Math.random() * 100) + 1;
+        const totalLikes = Math.floor(Math.random() * 100) + 1;
+        const newOutfit = {
+            userID: userID,
+            outfitPictureURL: outfitPictureURL,
+            datePosted: new Date(),
+            likes: totalLikes,
+            points: totalPoints,
+        };
+        // Add the newOutfit object to the collection
+        const docRef = await addDoc(collection(db, "outfit-posts"), newOutfit);
+        console.log("outfit written with ID: ", docRef.id);
+        return docRef.id;
+    } catch (error) {
+        console.error("Failed to create outfit post:", error);
+        throw error;
+    }
+}
 
-//         const newOutfit = {
-//             userID: userID,
-//             outfitPictureURL: outfitPictureURL,
-//             clothingItems: clothingItems,
-//             datePosted: new Date(),
-//             likes: 0,
-//             points: totalPoints,
-//         };
+export const listAllOutfitPosts = async (db, userID) => {
+    try {
+        const outfitRef = collection(db, "outfit-posts");
+        const q = query(outfitRef, where("userID", "!=", userID));
+        const querySnapshot = await getDocs(q);
+        const outfitArray = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const outfitItem = {
+                userID: data.userID,
+                outfitPictureURL: data.outfitPictureURL,
+                datePosted: data.datePosted,
+                likes: data.likes,
+                points: data.points,
+            };
+            outfitArray.push(outfitItem);
+        });
+        console.log(outfitArray);
+        return outfitArray;
+    } catch (error) {
+        console.error("Failed to return all outfit posts:", error);
+        throw error;
+    }
+}
 
-//         await updateDoc(doc(db, "users", id), {
-//             points : points + totalPoints
-//         });
-//         // Add the newOutfit object to the collection
-//         const docRef = await addDoc(collection(db, "outfit-posts"), newOutfit);
-//         console.log("Document written with ID: ", docRef.id);
-//         return docRef.id;
-//     } catch (error) {
-//         console.error("Failed to create outfit post:", error);
-//         throw error;
-//     }
-// }
-
-// export const listAllOutfitPosts = async (db) => {
-//     try {
-//         const outfitRef = collection(db, "outfit-posts");
-//         const q = query(outfitRef, where("userID", "==", userID));
-//         const querySnapshot = await getDocs(q);
-//         const outfitArray = [];
-//         querySnapshot.forEach((doc) => {
-//             const data = doc.data();
-//             const outfitItem = {
-//                 id: doc.id,
-//                 userID: data.userID,
-//                 outfitPictureURL: data.outfitPictureURL,
-//                 clothingItems: data.clothingItems,
-//                 datePosted: data.datePosted,
-//                 likes: data.likes,
-//                 points: data.points,
-//             };
-//             outfitArray.push(outfitItem);
-//         });
-//         console.log(outfitArray);
-//         return outfitArray;
-//     } catch (error) {
-//         console.error("Failed to return all outfit posts:", error);
-//         throw error;
-//     }
-// }

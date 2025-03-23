@@ -48,7 +48,7 @@ export default function Feed(props){
                             style={{ maxWidth: "100%", maxHeight: "300px", marginBottom: "1rem" }}
                         />
                         <Card.Text>
-                            Likes: {item.likes ? item.likes : 3} | Comments: {item.comments ? item.comments : 2}
+                            Likes: {item.likes ? item.likes : 3} | Comments: {item.comments ? item.comments : 2} | Points: {Math.floor(Math.random() * 100) + 1}
                         </Card.Text>
                         <Button variant="primary" style={{ marginRight: "0.5rem" }}>Like</Button>
                         <Button variant="secondary">Comment</Button>
