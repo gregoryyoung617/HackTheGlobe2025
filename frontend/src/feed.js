@@ -2,6 +2,7 @@ import React, {useState,useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { getStorage, ref, uploadBytes,listAll, getDownloadURL } from "firebase/storage";
+import { markClothingForSale } from "./api";
 
 export default function Feed(props){
     // Mock feed items for illustration
