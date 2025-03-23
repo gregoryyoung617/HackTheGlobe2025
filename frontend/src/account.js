@@ -72,7 +72,7 @@ export default function Account(props){
         const storage = getStorage();
 
         setUploading(true);
-        const storageRef = ref(storage, `images/${props.user.uid}/${imageFile.name}`); // Create a reference in Firebase Storage
+        const storageRef = ref(storage, `images/${props.user.uid}/posts/${imageFile.name}`); // Create a reference in Firebase Storage
         try {
             // Upload the file
             await uploadBytes(storageRef, imageFile);
