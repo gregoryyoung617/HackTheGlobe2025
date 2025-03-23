@@ -44,7 +44,7 @@ export default function Marketplace(props){
                     {imageObjs && imageObjs.map((img, index) => (
                         <img
                             key={index}
-                            src={img}
+                            src={img.clothingPictureURL}
                             alt={`Image ${index}`}
                             loading="lazy" // Lazy loading attribute
                             className="img-square"
