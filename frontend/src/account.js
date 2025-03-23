@@ -6,8 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { createClothing, listAllClothing, getIndividualClothing, markClothingForSale} from "./api";
-
+import { postOutfit, createClothing, listAllClothing, getIndividualClothing, markClothingForSale} from "./api";
 import accountSvg from './assets/svgs/account.svg'
 import fireSvg from './assets/svgs/fire.svg'
 import logoPng from './assets/imgs/HTG2025_logo.png'
@@ -86,6 +85,7 @@ export default function Account(props){
             await uploadBytes(storageRef, imageFile);
             console.log("File uploaded successfully!");
             const url = await getDownloadURL(storageRef);
+            postOutfit(props.db, props.user.uid, url);
             setImageUrl(url); 
             setImage(URL.createObjectURL(imageFile)); 
         } catch (error) {

@@ -52,7 +52,7 @@ function App(props) {
       <header className="App-header">
       <Router>
           {!user ? 
-          <Login auth={props.auth}/> :
+          <Login db={props.db} auth={props.auth}/> :
             <>
               <div className="navbar">
                 <nav>
@@ -107,7 +107,7 @@ function App(props) {
               </div>
               <main>
               <Routes>
-                  <Route path="/" element={<Feed auth={props.auth} user={user}/>} />
+                  <Route path="/" element={<Feed db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Marketplace" element={<Marketplace db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Wardrobe" element={<Wardrobe db={props.db} auth={props.auth} user={user}/>} />
                   <Route path="/Account" element={<Account db={props.db} auth={props.auth} user={user}/>} />
