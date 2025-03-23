@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchAndPrintSustainabilityInfo } from "./api";
+import Logo from './loading'
+import anime from "animejs";
 
 export default function Analyze() {
     const [clothingName, setClothingName] = useState("");
@@ -40,13 +42,41 @@ export default function Analyze() {
         );
     };
 
+    useEffect(() => {
+        if (isLoading) {
+            anime({
+                targets: ".loading-svg g path", // Target the loading SVG
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInOutSine',
+                duration: 1000,
+                delay: function(el, i) { return i * 100 },
+                direction: 'alternate',
+                loop: true,
+            });
+        }
+    }, [isLoading]);
+
     return (
         <div className="analyze-container">
             <h2>Analyze Clothing Sustainability</h2>
             
             <div className="form-group">
+                <label htmlFor="clothingBrand">Clothing Brand:</label>
+                <input 
+                    style={{marginLeft:"15px"}}
+                    type="text" 
+                    id="clothingBrand" 
+                    className="add-input"
+                    value={clothingBrand} 
+                    onChange={(e) => setClothingBrand(e.target.value)}
+                    placeholder="e.g. Nike, Adidas, H&M"
+                />
+            </div>
+            <div className="form-group">
                 <label htmlFor="clothingName">Clothing Name:</label>
                 <input 
+                    style={{marginLeft:"15px"}}
+                    className="add-input"
                     type="text" 
                     id="clothingName" 
                     value={clothingName} 
@@ -55,16 +85,6 @@ export default function Analyze() {
                 />
             </div>
             
-            <div className="form-group">
-                <label htmlFor="clothingBrand">Clothing Brand:</label>
-                <input 
-                    type="text" 
-                    id="clothingBrand" 
-                    value={clothingBrand} 
-                    onChange={(e) => setClothingBrand(e.target.value)}
-                    placeholder="e.g. Nike, Adidas, H&M"
-                />
-            </div>
             
             <button 
                 onClick={handleSubmit} 
@@ -76,8 +96,9 @@ export default function Analyze() {
             
             {isLoading && (
                 <div className="loading-container">
-                    <div className="loading-spinner">🔄</div>
-                    <p>Analyzing sustainability information...</p>
+                    <Logo/>
+                    {/* <div className="loading-spinner">🔄</div>
+                    <p>Analyzing sustainability information...</p> */}
                 </div>
             )}
             

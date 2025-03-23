@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { createUser } from "./api";
 
@@ -42,31 +43,50 @@ export default function Login(props){
 
     return(
         <main>
-            <div>
-                login
-                <input onChange={(e)=>{
-                    setLogUser(e.target.value)
-                }}/>
-                <input onChange={(e)=>{
-                    setLogPW(e.target.value)
-                }}/>
-                <Button
-                    onClick={handleLogin}
-                >login</Button>
-            </div>
+            <Card style={{width:"90vw", marginBottom:"3rem"}}>
+                <Card.Title>
+                    Login
+                </Card.Title>
+                <Card.Body style={{display:'flex', flexDirection:"column"}}>
+                    <input className="add-input" 
+                    style={{marginBottom:"1rem"}}
+                    onChange={(e)=>{
+                        setLogUser(e.target.value)
+                    }}/>
+                    <input className="add-input" 
+                    style={{marginBottom:"1rem"}}
+                    onChange={(e)=>{
+                        setLogPW(e.target.value)
+                    }}/>
+                    <Button
+                        onClick={handleLogin}
+                        className="green"
+                    >Login</Button>
+                </Card.Body>
+            </Card>
 
-            <div>
-                register
-                <input onChange={(e)=>{
-                    setRegUser(e.target.value)
-                }}/>
-                <input onChange={(e)=>{
-                    setRegPW(e.target.value)
-                }}/>
-                <button
-                    onClick={handleRegister}
-                >Register</button>
-            </div>
+            <Card style={{width:"90vw"}}>
+                <Card.Title>
+                    Register
+                </Card.Title>
+                <Card.Body style={{display:'flex', flexDirection:"column"}}>
+                    <input className="add-input"
+                    style={{marginBottom:"1rem"}}
+                    onChange={(e)=>{
+                        setRegUser(e.target.value) 
+                    }}/>
+                    <input className="add-input" 
+                    style={{marginBottom:"1rem"}}
+                    onChange={(e)=>{
+                        setRegPW(e.target.value)
+                    }}/>
+                    <Button
+                        onClick={handleRegister}
+                        className="green"
+                    >Register</Button>
+
+                </Card.Body>
+            </Card>
         </main>
     )
 }

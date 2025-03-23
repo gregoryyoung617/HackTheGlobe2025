@@ -1,5 +1,6 @@
 :root{
   --light-bg: #ffffff;
+  --light-green:#88c5a8 !important;
 }
 
 .App {
@@ -135,6 +136,14 @@ nav{
   overflow:hidden;
 }
 
+.card{
+  border-color:var(--light-green) !important;
+}
+
+.lg-border{
+  border-color:var(--light-green) !important;
+}
+
 .page-header{
   display:flex;
   justify-content:center;
@@ -165,6 +174,10 @@ nav{
 
 .green{
   background-color:#118B50 !important;
+}
+
+.loading-svg{
+height:200px;
 }
 
 .page-title{

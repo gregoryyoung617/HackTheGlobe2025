@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { getStorage, ref, uploadBytes,listAll, getDownloadURL, list } from "firebase/storage";
 import addSvg from './assets/svgs/add.svg'
+import Logo from './loading'
+import anime from "animejs";
+import loadingSvg from './assets/svgs/logo.svg'
 import { createClothing, listAllClothing, getIndividualClothing} from "./api";
 
 export default function Wardrobe(props){
@@ -28,6 +31,8 @@ export default function Wardrobe(props){
     const [viewType, setViewType] = useState(null);
     const [viewBrand, setViewBrand] = useState(null);
     const [viewSize, setViewSize] = useState(null);
+
+    const [loading, setLoading] = useState(true);
 
     const handleDrop = (e) => {
         e.preventDefault();
@@ -101,10 +106,11 @@ export default function Wardrobe(props){
         // const folderRef = ref(storage, `images/${props.user.uid}/wardrobe/`);
         // const result = await listAll(folderRef);
         // const urls = await Promise.all(result.items.map((itemRef) => getDownloadURL(itemRef)));
+        setLoading(true);
         const imgObjs = await listAllClothing(props.db, props.user.uid, "timesWorn");
         setImageObjs(imgObjs);
         setNumImgs(imgObjs.length);
-        
+        setLoading(false);
         //setImageUrls(urls);
         
     };
@@ -132,6 +138,21 @@ export default function Wardrobe(props){
     const handleAddImg = ()=>{
         setShowAdd(true);
     }
+
+    useEffect(() => {
+        if (loading) {
+            anime({
+                targets: ".loading-svg g path", // Target the loading SVG
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInOutSine',
+                duration: 1000,
+                delay: function(el, i) { return i * 100 },
+                direction: 'alternate',
+                loop: true,
+            });
+        }
+    }, [loading]);
+    
     return (
         <div className="page-container">
             <div className="page-header">
@@ -144,20 +165,29 @@ export default function Wardrobe(props){
                     className="add-svg"/>
             </div>
             <span>{`You have ${numImgs} ${numImgs === 1 ? "item":"items"}`}</span>
-            <div className="img-grid">
-                {imageObjs && imageObjs.map((img, index) => (
-                    <img
-                        key={index}
-                        src={img.clothingPictureURL}
-                        alt={`Image ${index}`}
-                        loading="lazy" // Lazy loading attribute
-                        className="img-square"
-                        onClick={()=>{
-                            handleImgClick(img.clothingPictureURL)
-                        }}
-                    />
-                ))}
-            </div>
+            {
+                loading ? 
+                    // <div className="loading">
+                    //     <img src={loadingSvg} className="loading-svg"></img>
+                    // </div> 
+                    <Logo/>
+                    :
+                <div className="img-grid">
+                    {imageObjs && imageObjs.map((img, index) => (
+                        <img
+                            key={index}
+                            src={img.clothingPictureURL}
+                            alt={`Image ${index}`}
+                            loading="lazy" // Lazy loading attribute
+                            className="img-square"
+                            onClick={()=>{
+                                handleImgClick(img.clothingPictureURL)
+                            }}
+                        />
+                    ))}
+                </div>
+
+            }
             <Modal
                 show={showAdd}
                 onHide={()=>{

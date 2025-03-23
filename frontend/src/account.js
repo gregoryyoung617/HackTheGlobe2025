@@ -163,6 +163,7 @@ export default function Account(props){
                             textAlign: "center",
                             backgroundColor: dragging ? "#f0f8ff" : "#fff",
                         }}
+                        className="lg-border"
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
