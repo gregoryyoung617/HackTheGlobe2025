@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { signOut } from "firebase/auth";
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import accountSvg from './assets/svgs/account.svg'
@@ -92,19 +93,23 @@ export default function Account(props){
     return (
         <div className="page-container">
             {/* Top-right account icon + dropdown */}
-            <div className="account-container">
-                <img 
+            <Dropdown className="acc-svg">
+                <Dropdown.Toggle
+                    as="img" // Use the image as the toggle button
                     src={accountSvg}
+                    alt="Account"
                     className="acc-svg"
-                    onClick={() => setAccDropdown(!accDropdown)}
-                    alt="Account icon"
+                    style={{ cursor: "pointer" }}
                 />
-                {accDropdown && (
-                    <div className="acc-dropdown">
-                        <button className="button">Settings</button>
-                        <button onClick={handleLogout} className="button">Logout</button>
-                    </div>
-                )}
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/settings">Settings</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            <div className="account-container">
+                <img
+                src={logoPng}
+                style={{width:'95px', height:'95px', margin:"-20px auto"}}/>
             </div>
 
             {/* Streak card */}

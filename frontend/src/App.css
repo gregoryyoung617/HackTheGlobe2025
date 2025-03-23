@@ -103,6 +103,9 @@ nav{
 .acc-svg{
   width:35px;
   height:35px;
+  position:absolute !important;
+  top:1rem;
+  left:1rem;
 }
 
 .add-svg{
