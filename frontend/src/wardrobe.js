@@ -221,7 +221,7 @@ export default function Wardrobe(props){
             </Modal>
             <button onClick={() => getIndividualClothing(props.db, "youtube.com")}>Get clothing by url</button>
             <button onClick={() => listAllClothing(props.db, props.user.uid, "timesWorn")}>List all clothing</button>
-            <button onClick={() => createClothing(props.db, props.user.uid, "Shirt", "Kaws Tokyo's First", "youtube.com", "Uniqlo", "XXXL")}>Create</button>
+            <button onClick={() => createClothing(props.db, props.user.uid, "Shirt", "Kaws Tokyo's First", "https://readermaria.com/movies/eyes-wide-shut.jpg", "Uniqlo", "XXXL")}>Create</button>
         </div>
     )
 }

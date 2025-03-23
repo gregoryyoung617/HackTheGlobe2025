@@ -2,6 +2,7 @@ import React, {useState,useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { getStorage, ref, uploadBytes,listAll, getDownloadURL } from "firebase/storage";
+import { markClothingForSale } from "./api";
 
 export default function Feed(props){
     // Mock feed items for illustration
@@ -36,6 +37,7 @@ export default function Feed(props){
 
     return (
         <div className="page-container">
+            <button onClick={() => markClothingForSale(props.db, "https://firebasestorage.googleapis.com/v0/b/htg2025-11d33.firebasestorage.app/o/images%2F8s8MSdzPfzOB8q39mZ3aZYlegCo1%2Fwardrobe%2Fbird-8788491_1280.jpg?alt=media&token=0721f72f-ac89-4517-93a5-9fabe0dc3c1e")}>Mark</button>
             <h2 style={{ margin: "1rem 0" }}>Today's Feed</h2>
             {imageUrls.map((item, index) => (
                 <Card style={{ width: "90%", marginBottom: "1rem" }} key={index}>

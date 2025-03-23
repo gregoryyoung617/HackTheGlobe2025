@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export const getProductInfo = async (productInput) => {
     try {
@@ -69,6 +69,7 @@ export const listAllClothing = async (db, userID, sortBy) => {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const clothingItem = {
+                id: data.id,
                 userID: data.userID,
                 clothingType: data.clothingType,
                 clothingName: data.clothingName,
@@ -105,6 +106,7 @@ export const getIndividualClothing = async (db, clothingURL) => {
             const doc = querySnapshot.docs[0];
             const data = doc.data();
             const clothingItem = {
+                id: data.id,
                 userID: data.userID,
                 clothingType: data.clothingType,
                 clothingName: data.clothingName,
@@ -146,6 +148,28 @@ export const createUser = async (db, uid, email) => {
         throw error;
     }
 }
+
+export const markClothingForSale = async (db, id) => {
+    try {
+        // Update the onSale field to true
+
+        await updateDoc(doc(db, "clothes", id), {
+            onSale: true
+        });
+        
+        console.log("Clothing marked for sale successfully");
+        
+        // Return the updated clothing data
+        return {
+            id: id,
+        };
+    } catch (error) {
+        console.error("Failed to mark clothing for sale:", error);
+        throw error;
+    }
+}
+
+
 
 
 
