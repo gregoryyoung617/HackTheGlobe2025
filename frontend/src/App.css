@@ -86,6 +86,13 @@ nav{
   overflow-y:scroll;
 }
 
+.page-container h2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .account-container{
   display:flex;
   justify-content:flex-start;
@@ -96,6 +103,9 @@ nav{
 .acc-svg{
   width:35px;
   height:35px;
+  position:absolute !important;
+  top:1rem;
+  left:1rem;
 }
 
 .add-svg{

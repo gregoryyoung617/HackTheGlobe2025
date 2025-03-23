@@ -77,7 +77,7 @@ export default function Wardrobe(props){
             alert("Failed to upload image. Please try again.");
         } finally {
             setUploading(false);
-            setImage(false);
+            //setImage(null);
             fetchImages();
         }
     };
@@ -184,7 +184,6 @@ export default function Wardrobe(props){
                                 </label>
 
                                 <label
-                                    htmlFor="fileInput"
                                     style={{
                                         display: "inline-block",
                                         marginTop: "10px",
